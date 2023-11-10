@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://da0u1myjeqsfo"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_j240b"]
+[ext_resource type="Texture2D" uid="uid://dpgrf00g1vp1s" path="res://icon.svg" id="1_n7hs0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lhmfr"]
+size = Vector2(64, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dyqxr"]
+radius = 163.003
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_er5b7"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_j240b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -32)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_n7hs0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -32)
+scale = Vector2(1.00469, 1)
+shape = SubResource("RectangleShape2D_lhmfr")
+
+[node name="PushArea" type="Area2D" parent="."]
+position = Vector2(0, -32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushArea"]
+shape = SubResource("CircleShape2D_dyqxr")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_er5b7")

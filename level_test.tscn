@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkfac6wqjrp5n"]
+
+[ext_resource type="Script" path="res://scene_manager.gd" id="1_2x63e"]
+[ext_resource type="Texture2D" uid="uid://dpgrf00g1vp1s" path="res://icon.svg" id="1_iha0u"]
+[ext_resource type="PackedScene" uid="uid://da0u1myjeqsfo" path="res://player/player.tscn" id="2_ma103"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hwswj"]
+size = Vector2(128, 128)
+
+[node name="LevelTest" type="Node2D"]
+script = ExtResource("1_2x63e")
+player_scene = ExtResource("2_ma103")
+
+[node name="Obstacle" type="StaticBody2D" parent="."]
+position = Vector2(591, 597)
+scale = Vector2(5.6, 0.32)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacle"]
+texture = ExtResource("1_iha0u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle"]
+shape = SubResource("RectangleShape2D_hwswj")
+
+[node name="Obstacle2" type="StaticBody2D" parent="."]
+position = Vector2(981, 476)
+scale = Vector2(2.07482, 0.347338)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacle2"]
+texture = ExtResource("1_iha0u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle2"]
+shape = SubResource("RectangleShape2D_hwswj")
+
+[node name="Obstacle3" type="StaticBody2D" parent="."]
+position = Vector2(155, 472)
+scale = Vector2(2.07482, 0.347338)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacle3"]
+texture = ExtResource("1_iha0u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle3"]
+shape = SubResource("RectangleShape2D_hwswj")
+
+[node name="SpawnLocations" type="Node2D" parent="."]
+
+[node name="0" type="Marker2D" parent="SpawnLocations" groups=["player_spawn_point"]]
+position = Vector2(142, 363)
+
+[node name="1" type="Marker2D" parent="SpawnLocations" groups=["player_spawn_point"]]
+position = Vector2(992, 382)
