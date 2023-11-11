@@ -96,12 +96,16 @@ func update_lobby():
 	for player in players.get_children():
 		player.queue_free()
 	
-	var self_name_plate = name_plate_scene.instantiate()
-	players.add_child(self_name_plate)
-	self_name_plate.set_player_data(multiplayer.get_unique_id())
+	if not multiplayer.is_server():
+		var self_name_plate = name_plate_scene.instantiate()
+		players.add_child(self_name_plate)
+		self_name_plate.set_player_data(multiplayer.get_unique_id())
 	
 	# Adds each peer as a nameplate
 	for peer in multiplayer.get_peers():
-		var peer_name_plate = name_plate_scene.instantiate()
-		players.add_child(peer_name_plate)
-		peer_name_plate.set_player_data(peer)
+		# This checks if the current iteration (peer) is the server by comparing its ID
+		if peer != 1:
+			# And if it isn't then add the ID to the list of players in the lobby display
+			var peer_name_plate = name_plate_scene.instantiate()
+			players.add_child(peer_name_plate)
+			peer_name_plate.set_player_data(peer)
