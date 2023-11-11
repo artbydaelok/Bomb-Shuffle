@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cikt71588qjuh"]
+[gd_scene load_steps=2 format=3 uid="uid://cikt71588qjuh"]
 
 [ext_resource type="Script" path="res://multiplayer_controller.gd" id="1_ptvis"]
-[ext_resource type="Texture2D" uid="uid://dpgrf00g1vp1s" path="res://icon.svg" id="2_4eu8j"]
 
 [node name="MultiplayerController" type="Control"]
 layout_mode = 3
@@ -52,7 +51,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HostButton" type="Button" parent="VBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -73,54 +71,16 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Start"
 
-[node name="LobbyPlayers" type="VBoxContainer" parent="."]
+[node name="Players" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 635.0
-offset_top = 108.0
-offset_right = 675.0
-offset_bottom = 148.0
+offset_left = 675.0
+offset_top = 75.0
+offset_right = 732.0
+offset_bottom = 115.0
 
-[node name="Player1" type="TextureRect" parent="LobbyPlayers"]
-self_modulate = Color(0.32549, 0.32549, 0.32549, 1)
-custom_minimum_size = Vector2(350, 55)
+[node name="Label" type="Label" parent="Players"]
 layout_mode = 2
-texture = ExtResource("2_4eu8j")
-
-[node name="Player1Name" type="Label" parent="LobbyPlayers/Player1"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Waiting for players"
-
-[node name="Player2" type="TextureRect" parent="LobbyPlayers"]
-self_modulate = Color(0.32549, 0.32549, 0.32549, 1)
-custom_minimum_size = Vector2(350, 55)
-layout_mode = 2
-texture = ExtResource("2_4eu8j")
-
-[node name="Player2Name" type="Label" parent="LobbyPlayers/Player2"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Waiting for players"
+text = "Players"
 
 [connection signal="button_down" from="VBoxContainer/HostButton" to="." method="_on_host_button_button_down"]
 [connection signal="button_down" from="VBoxContainer/JoinButton" to="." method="_on_join_button_button_down"]

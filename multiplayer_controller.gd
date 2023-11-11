@@ -1,11 +1,12 @@
 extends Control
 
-@export var Address = "174.138.88.177"
+#@export var Address = "174.138.88.177"
+@export var Address = "127.0.0.1"
 @export var port = 8910
 
-@export var max_player_count: int = 2
-
-@onready var lobby_players = $LobbyPlayers
+@export var max_player_count: int = 6
+@onready var players = $Players
+@onready var name_plate_scene = preload("res://name_plate.tscn")
 
 func _ready():
 	multiplayer.peer_connected.connect(peer_connected)
@@ -75,7 +76,8 @@ func _on_start_game_button_down():
 
 func peer_connected(id):
 	print("Player " + str(id) + " connected")
-
+	update_lobby.rpc()
+	
 func peer_disconnected(id):
 	print("Player " + str(id) + " disconnected")
 	
@@ -86,6 +88,10 @@ func connected_to_server():
 func connection_failed():
 	print("Failed to connect.")
 
-@rpc("any_peer", "call_local")
+@rpc("any_peer")
 func update_lobby():
-	pass
+	print(multiplayer.get_peers())
+	for peer in multiplayer.get_peers():
+		var name_plate = name_plate_scene.instantiate()
+		players.add_child(name_plate)
+		name_plate.set_player_data(peer)
