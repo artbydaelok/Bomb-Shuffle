@@ -1,6 +1,6 @@
 extends Control
 
-@export var Address = "127.0.0.1"
+@export var Address = "174.138.88.177"
 @export var port = 8910
 
 @export var max_player_count: int = 2
@@ -69,6 +69,7 @@ func _on_join_button_button_down():
 
 
 func _on_start_game_button_down():
+	# This calls the function on 
 	start_game.rpc()
 	pass # Replace with function body.
 

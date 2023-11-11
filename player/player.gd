@@ -14,9 +14,12 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var push_area = $PushArea
 
 func _ready():
+	# This sets the multiplayer authority for the synchronizer to this client
 	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
 
 func _physics_process(delta):
+	# Since there are multiple player nodes in the scene
+	# Using the multiplayer synchronizer, we run this code only for this client. 
 	if not $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 		return
 	
@@ -39,19 +42,19 @@ func _physics_process(delta):
 	move_and_slide()
 	
 func _process(_delta):
+	# Using the multiplayer synchronizer, we run this code only for this client. 
 	if not $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 		return
 	if Input.is_action_just_pressed("push"):
 		for body in push_area.get_overlapping_bodies():
 			if body.is_in_group("player") and not body == self:
-				print(body)
-				push_away.rpc(body)
+				push_away(body)
 
-@rpc("any_peer", "call_local")
 func push_away(player: Player):
 	var direction_to_push = global_position.direction_to(player.global_position)
-	player.launch_player.rpc(direction_to_push * push_force)
+	player.launch_player.rpc_id(int(str(player.name)) ,direction_to_push * push_force)
 
 @rpc("any_peer", "call_local")
 func launch_player(new_velocity: Vector2):
 	velocity = new_velocity
+	print(name + " is getting launched")
